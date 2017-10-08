@@ -98,13 +98,13 @@ public class NavigationDrawerActivity extends AppCompatActivity
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new MapFragment())
                     .commit();
-        } else if (id == R.id.nav_third_layout) {
+        } else if (id == R.id.nav_account_layout) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, new ThirdFragment())
+                    .replace(R.id.content_frame, new AccountFragment())
                     .commit();
-        } else if (id == R.id.nav_fourth_layout) {
+        } else if (id == R.id.nav_history_layout) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, new FourthFragment())
+                    .replace(R.id.content_frame, new HistoryFragment())
                     .commit();
         } else if (id == R.id.nav_share) {
 
