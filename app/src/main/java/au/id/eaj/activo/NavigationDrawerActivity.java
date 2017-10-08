@@ -1,5 +1,6 @@
 package au.id.eaj.activo;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,13 @@ import android.view.MenuItem;
 
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    FragmentManager fragmentManager;
+
+    Fragment earnWaiting;
+    Fragment earnActive;
+    boolean earning;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +51,13 @@ public class NavigationDrawerActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // Set default layout?
-        FragmentManager manager = getFragmentManager();
-        manager.beginTransaction()
+        fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, new EarnFragment())
                 .commit();
+
+        earnActive = new EarnActiveFragment();
+        earnWaiting = new EarnFragment();
     }
 
     @Override
@@ -81,19 +92,36 @@ public class NavigationDrawerActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public void earnStartListener(View view) {
+        earning = true;
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, earnActive)
+                .commit();
+    }
+
+    public void earnStopListener(View view) {
+        earning = false;
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, earnWaiting)
+                .commit();
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        FragmentManager fragmentManager = getFragmentManager();
-
-
         if (id == R.id.nav_earn_layout) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, new EarnFragment())
-                    .commit();
+            if (!earning) {
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, earnWaiting)
+                        .commit();
+            } else {
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, earnActive)
+                        .commit();
+            }
         } else if (id == R.id.nav_map_layout) {
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new MapFragment())
