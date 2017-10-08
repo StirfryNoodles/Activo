@@ -19,16 +19,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class EarnActiveFragment extends Fragment implements OnMapReadyCallback {
     View myView;
-    GoogleMap googleMap;
+    MapFragment mapFragment;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
 
         myView = inflater.inflate(R.layout.earn_active_layout, container, false);
-
-//        // Obtain the map?
-//        MapFragment mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.map_fragment);
-//        if (mapFragment != null) mapFragment.getMapAsync(this);
 
         return myView;
     }
@@ -37,11 +32,7 @@ public class EarnActiveFragment extends Fragment implements OnMapReadyCallback {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getFragmentManager().beginTransaction()
-                .add(R.id.map_fragment, MapFragment.newInstance())
-                .commit();
-
-        MapFragment mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.map_fragment);
+        mapFragment = (MapFragment)getChildFragmentManager().findFragmentById(R.id.map_fragment);
 
         if (mapFragment != null) {
             TextView textView = (TextView)getView().findViewById(R.id.textView3);
