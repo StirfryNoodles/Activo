@@ -36,7 +36,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Will show nearby geofences...", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -124,7 +124,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
             }
         } else if (id == R.id.nav_map_layout) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, new MapFragment())
+                    .replace(R.id.content_frame, new ViewMapFragment())
                     .commit();
         } else if (id == R.id.nav_account_layout) {
             fragmentManager.beginTransaction()

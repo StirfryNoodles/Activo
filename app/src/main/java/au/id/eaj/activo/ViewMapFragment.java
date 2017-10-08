@@ -11,7 +11,7 @@ import android.view.ViewGroup;
  * Created by Ainsley on 7/10/2017.
  */
 
-public class MapFragment extends Fragment {
+public class ViewMapFragment extends Fragment {
     View myView;
 
     @Nullable
