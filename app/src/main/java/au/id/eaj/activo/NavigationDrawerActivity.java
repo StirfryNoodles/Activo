@@ -59,6 +59,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        // My stuff
         // Set default layout?
         fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
@@ -69,19 +71,19 @@ public class NavigationDrawerActivity extends AppCompatActivity
         earnWaiting = new EarnFragment();
 
         // Fixing Later Map loading Delay (code from online? try it out)
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    MapView mv = new MapView(getApplicationContext());
-                    mv.onCreate(null);
-                    mv.onPause();
-                    mv.onDestroy();
-                }catch (Exception ignored){
-                    Log.d(TAG, "Exception encountered.");
-                }
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    MapView mv = new MapView(getApplicationContext());
+//                    mv.onCreate(null);
+//                    mv.onPause();
+//                    mv.onDestroy();
+//                }catch (Exception ignored){
+//                    Log.d(TAG, "Exception encountered.");
+//                }
+//            }
+//        }).start();
     }
 
     @Override
