@@ -32,12 +32,23 @@ public class EarnActiveFragment extends Fragment implements OnMapReadyCallback {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mapFragment = (MapFragment)getChildFragmentManager().findFragmentById(R.id.map_fragment);
+//        mapFragment = (MapFragment)getChildFragmentManager().findFragmentById(R.id.map_fragment);
+//
+//        if (mapFragment != null) {
+//            TextView textView = (TextView)getView().findViewById(R.id.textView3);
+//            textView.setText("NOT NULL :)))");
+//        }
 
-        if (mapFragment != null) {
-            TextView textView = (TextView)getView().findViewById(R.id.textView3);
-            textView.setText("NOT NULL :)))");
-        }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        mapFragment = (MapFragment)getChildFragmentManager().findFragmentById(R.id.map_fragment);
+        TextView textView = (TextView)getView().findViewById(R.id.earnActive_text_view);
+        if (mapFragment != null) textView.setText("Map found!!");
+        mapFragment.getMapAsync(this);
     }
 
     @Override
