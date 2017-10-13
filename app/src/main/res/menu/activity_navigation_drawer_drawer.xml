@@ -19,7 +19,7 @@
             android:icon="@drawable/ic_menu_list"
             android:title="History" />
         <item
-            android:id="@+id/nav_fifth_layout"
+            android:id="@+id/nav_social_layout"
             android:icon="@drawable/ic_menu_social"
             android:title="Social"/>
     </group>

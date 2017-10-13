@@ -99,7 +99,7 @@ public class EarnActiveFragment extends Fragment implements OnMapReadyCallback, 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, ZOOM));
 //        googleMap.addMarker(new MarkerOptions()
-//                .title("Sydney")
+//                .title("Sydney")-33.83555, 151.2036
 //                .snippet("The most populous city in Australia.")
 //                .position(sydney));
         homeDemoPoly = googleMap.addPolygon(new PolygonOptions()
@@ -126,6 +126,7 @@ public class EarnActiveFragment extends Fragment implements OnMapReadyCallback, 
 
     @Override
     public void onLocationChanged(Location location) {
+        if (googleMap == null) return;
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, ZOOM);
         googleMap.animateCamera(cameraUpdate);

@@ -2,6 +2,7 @@ package au.id.eaj.activo;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -34,6 +35,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
     Fragment earnActive;
     boolean earning;
 
+    FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,14 +44,16 @@ public class NavigationDrawerActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Will show nearby geofences...", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Will ask user where they want to go...", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
+
+        fab.setVisibility(FloatingActionButton.INVISIBLE);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,19 +76,19 @@ public class NavigationDrawerActivity extends AppCompatActivity
         earnWaiting = new EarnFragment();
 
         // Fixing Later Map loading Delay (code from online? try it out)
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    MapView mv = new MapView(getApplicationContext());
-//                    mv.onCreate(null);
-//                    mv.onPause();
-//                    mv.onDestroy();
-//                }catch (Exception ignored){
-//                    Log.d(TAG, "Exception encountered.");
-//                }
-//            }
-//        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    MapView mv = new MapView(getApplicationContext());
+                    mv.onCreate(null);
+                    mv.onPause();
+                    mv.onDestroy();
+                }catch (Exception ignored){
+                    Log.d(TAG, "Exception encountered.");
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -120,6 +125,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
     public void earnStartListener(View view) {
         earning = true;
+        fab.setVisibility(FloatingActionButton.VISIBLE);
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, earnActive)
                 .commit();
@@ -127,6 +133,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
     public void earnStopListener(View view) {
         earning = false;
+        fab.setVisibility(FloatingActionButton.INVISIBLE);
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, earnWaiting)
                 .commit();
@@ -140,25 +147,35 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         if (id == R.id.nav_earn_layout) {
             if (!earning) {
+                fab.setVisibility(FloatingActionButton.INVISIBLE);
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, earnWaiting)
                         .commit();
             } else {
+                fab.setVisibility(FloatingActionButton.VISIBLE);
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, earnActive)
                         .commit();
             }
         } else if (id == R.id.nav_map_layout) {
+            fab.setVisibility(FloatingActionButton.VISIBLE);
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new ViewMapFragment())
                     .commit();
         } else if (id == R.id.nav_account_layout) {
+            fab.setVisibility(FloatingActionButton.INVISIBLE);
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new AccountFragment())
                     .commit();
         } else if (id == R.id.nav_history_layout) {
+            fab.setVisibility(FloatingActionButton.INVISIBLE);
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new HistoryFragment())
+                    .commit();
+        } else if (id == R.id.nav_social_layout) {
+            fab.setVisibility(FloatingActionButton.INVISIBLE);
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, new SocialFragment())
                     .commit();
         } else if (id == R.id.nav_share) {
 
