@@ -92,8 +92,8 @@ public class EarnActiveFragment extends Fragment implements OnMapReadyCallback, 
             Log.d(TAG, "onCreate: location permissions check failed");
             return;
         }
-        googleMap.setMyLocationEnabled(true);
 
+        googleMap.setMyLocationEnabled(true);
         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
